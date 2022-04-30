@@ -45,7 +45,7 @@ public class GreedyPlayer implements Player {
      */
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
 		if(board.isFull()) 
-			throw new Error("error: The board is full!");
+			throw new Error("Error: The board is full!");
 		possibleMoves = new Move[cols];
 		for(int c = 0; c < cols; c++) {
 			if(board.isValidMove(c)) {
