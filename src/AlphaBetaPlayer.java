@@ -62,7 +62,6 @@ public class AlphaBetaPlayer implements Player{
 		double Beta = Double.POSITIVE_INFINITY;
 		while(!arb.isTimeUp() && searchDepth <= board.numEmptyCells()) {
 			
-			
 			alphabeta(root, searchDepth, Alpha, Beta, true, arb);
 			arb.setMove(root.chosenMove);
 			searchDepth++;
@@ -96,7 +95,6 @@ public class AlphaBetaPlayer implements Player{
 			
 			int moveId = maxminimizingPlayer ? id : oppId;
 			
-
 			for(int i = 0; i < cols; i++){
 				if(!node.board.isColumnFull(i)){
 					node.board.move(i , moveId);
@@ -158,9 +156,7 @@ public class AlphaBetaPlayer implements Player{
 			}
 			return value;
 		}
-		
-		
-		}
+	}
 	
 	/**
 	 * This method determines how well the player is doing against the opponent 
@@ -175,7 +171,6 @@ public class AlphaBetaPlayer implements Player{
 		int myScore = calcScore(node.board, id);
 		int oppScore = calcScore(node.board,oppId);
 		return myScore - oppScore;
-		
 	}
 
 	/**
@@ -194,7 +189,6 @@ public class AlphaBetaPlayer implements Player{
 		final int cols = board.numCols();
 		int score = 0;		
 		
-
 		//horizontal
 		for(int r = 0; r < rows; r++) {
 			for(int c = 0; c <= cols - 4; c++) {
@@ -206,6 +200,7 @@ public class AlphaBetaPlayer implements Player{
 		
 			}
 		}
+		
 		//vertical 
 		for(int c = 0; c < cols; c++) {
 			for(int r = 0; r <= rows - 4; r++) {
@@ -218,6 +213,7 @@ public class AlphaBetaPlayer implements Player{
 				
 			}
 		}
+		
 		//diagonal 
 		for(int c = 0; c <= cols - 4; c++) {
 			for(int r = 0; r <= rows - 4; r++) {
@@ -229,6 +225,7 @@ public class AlphaBetaPlayer implements Player{
 				
 			}
 		}
+		
 		for(int c = 0; c <= cols - 4; c++) {
 			for(int r = rows - 1; r >= 4 - 1; r--) {
 				if(board.get(r - 0, c + 0) != id)continue;
@@ -248,7 +245,7 @@ public class AlphaBetaPlayer implements Player{
 		private int chosenMove;
 		private int value;
 		
-		/**
+	/**
 	 * GameTree constructor. creates a game tree and puts the different nodes 
 	 * into an array called children 
 	 * the nodes consist of the the move and the board configuration of the move 
