@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AlphaBetaPlayer implements Player{
 	private int id;
-	private int enemyid;
+	private int oppId;
 	private int cols;
 	/**
 	 * sets name of the player
@@ -30,7 +30,7 @@ public class AlphaBetaPlayer implements Player{
      */
 	public void init(int id, int msecPerMove, int rows, int cols) {
 		this.id = id;
-		this.enemyid = 3 - id; 
+		this.oppId = 3 - id; 
 		this.cols = cols;
 	}
 	
@@ -47,7 +47,7 @@ public class AlphaBetaPlayer implements Player{
 		if(board.isFull())
 			throw new Error("Error: the board is full!");
 		
-		GameTree root = new GameTree(-1, board);
+		BST root = new BST(-1, board);
 		
 		for(int i = 0; i < cols; i++) {
 			if(!board.isColumnFull(i)) {
@@ -77,7 +77,7 @@ public class AlphaBetaPlayer implements Player{
 	 * it returns the value of the best possible move
 	 *   
 	 * 
-	 * @param node a gametree object these are the children moves we need to check if they are the best option
+	 * @param node a BST object these are the children moves we need to check if they are the best option
 	 * @param depth an int the search depth
 	 * @param alpha a double equal to negative infinity we compare to/ transform to the value to see if we can cut off nodes
 	 * @param beta a double equal to infinity we compare to/ transform to the value to see if we can cut off nodes
@@ -85,7 +85,7 @@ public class AlphaBetaPlayer implements Player{
 	 * @param arb an Arbitrator object
 	 * @return value an int that is the value of the best possible move.
 	 */
-	private int alphabeta(GameTree node, int depth, double alpha, double beta, boolean maxminimizingPlayer, Arbitrator arb) {
+	private int alphabeta(BST node, int depth, double alpha, double beta, boolean maxminimizingPlayer, Arbitrator arb) {
 		
 		if(depth == 0 || node.isTerminal() || arb.isTimeUp()) {
 			node.value = evaluateNode(node);
@@ -94,7 +94,7 @@ public class AlphaBetaPlayer implements Player{
 		
 		if(node.isLeaf()){
 			
-			int moveId = maxminimizingPlayer ? id : enemyid;
+			int moveId = maxminimizingPlayer ? id : oppId;
 			
 
 			for(int i = 0; i < cols; i++){
@@ -109,7 +109,7 @@ public class AlphaBetaPlayer implements Player{
 		if(maxminimizingPlayer) {
 			int value = Integer.MIN_VALUE;
 
-			for(GameTree child: node.children) {
+			for(BST child: node.children) {
 				int newVal = alphabeta(child, depth - 1, alpha, beta, false, arb);//finds value of child
 				if(newVal > value) {
 					value = newVal;
@@ -136,7 +136,7 @@ public class AlphaBetaPlayer implements Player{
 		else {
 
 			int value = Integer.MAX_VALUE;
-			for(GameTree child: node.children) {
+			for(BST child: node.children) {
 				int newVal = alphabeta(child, depth - 1, alpha, beta, true, arb);
 				if(newVal < value) {
 					value = newVal;
@@ -169,11 +169,11 @@ public class AlphaBetaPlayer implements Player{
 	 * and returns the difference.
 	 *   
 	 * 
-	 * @param node a gametree object the last move the player did
+	 * @param node a BST object the last move the player did
 	 */
-	private int evaluateNode(GameTree node) {
+	private int evaluateNode(BST node) {
 		int myScore = calcScore(node.board, id);
-		int oppScore = calcScore(node.board,enemyid);
+		int oppScore = calcScore(node.board,oppId);
 		return myScore - oppScore;
 		
 	}
@@ -241,10 +241,10 @@ public class AlphaBetaPlayer implements Player{
 		return score;
 	}
 	
-	private class GameTree{
+	private class BST{
 		private Connect4Board board;
 		private int move;
-		private ArrayList<GameTree> children; 
+		private ArrayList<BST> children; 
 		private int chosenMove;
 		private int value;
 		
@@ -256,19 +256,19 @@ public class AlphaBetaPlayer implements Player{
 	 * @param move : the move number of the current node
 	 * @param board : the board configuration of that move 
 	 */
-		public GameTree(int move, Connect4Board board) {
+		public BST(int move, Connect4Board board) {
 			this.move = move;
 			this.board = board;
-			children = new ArrayList<GameTree>();
+			children = new ArrayList<BST>();
 		}
 		
 		/**
-		 * this adds a new node to the gametree array 
+		 * this adds a new node to the BST array 
 		 * 
 		 * @return a new node within the array children 
 		 */
 		public void addChild(int move, Connect4Board board) {
-			children.add(new GameTree(move, board));
+			children.add(new BST(move, board));
 			
 		}
 		

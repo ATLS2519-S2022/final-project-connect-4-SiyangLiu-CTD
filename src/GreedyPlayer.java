@@ -6,10 +6,10 @@
  */
 public class GreedyPlayer implements Player {
 	private int id;
-	private int enemyid;
+	private int oppId;
 	private int cols;
 	
-	private Move[] possibleMoves;
+	private Move[] routes;
 	/**
 	 * sets name of the player
 	 * 
@@ -30,7 +30,7 @@ public class GreedyPlayer implements Player {
      */
 	public void init(int id, int msecPerMove, int rows, int cols) {
 		this.id = id;
-		this.enemyid = 3 - id;
+		this.oppId = 3 - id;
 		this.cols = cols;
 	}
 	
@@ -46,22 +46,22 @@ public class GreedyPlayer implements Player {
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
 		if(board.isFull()) 
 			throw new Error("Error: The board is full!");
-		possibleMoves = new Move[cols];
+		routes = new Move[cols];
 		for(int c = 0; c < cols; c++) {
 			if(board.isValidMove(c)) {
 				board.move(c, id);
-				int moveValue = evaluateBoard(board, id, enemyid);
-				possibleMoves[c]= new Move(c, moveValue);
+				int moveValue = evaluateBoard(board, id, oppId);
+				routes[c]= new Move(c, moveValue);
 				board.unmove(c, id);
 				}
 		}
 		Move bestMove = null;
-		for(int i = 0; i < possibleMoves.length; i++) {
+		for(int i = 0; i < routes.length; i++) {
 			if(bestMove == null) {
-				bestMove = possibleMoves[i];
+				bestMove = routes[i];
 			}
-			else if(possibleMoves[i]!= null && bestMove.compareTo(possibleMoves[i]) < 0) {
-				bestMove = possibleMoves[i];
+			else if(routes[i]!= null && bestMove.compareTo(routes[i]) < 0) {
+				bestMove = routes[i];
 			}
 		}
 		arb.setMove(bestMove.colunm);
