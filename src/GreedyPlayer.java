@@ -4,7 +4,7 @@
  * @author Siyang Liu
  *
  */
-public class Greedyplayer implements Player {
+public class GreedyPlayer implements Player {
 	private int id;
 	private int enemyid;
 	private int cols;
@@ -188,4 +188,4 @@ public class Greedyplayer implements Player {
 			
 		}
 	}
-}    }
+}    
