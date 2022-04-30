@@ -19,6 +19,7 @@ public class MinimaxPlayer implements Player {
 	public String name() {
 		return "MiniMax";
 	}
+	
     /**
      * Initialize the player. The game calls this method once,
      * before any calls to calcMove().
@@ -33,6 +34,7 @@ public class MinimaxPlayer implements Player {
 		this.enemyid = 3 - id; 
 		this.cols = cols;
 	}
+	
     /**
      * Called by driver program to calculate the next move.
      *  
@@ -64,6 +66,7 @@ public class MinimaxPlayer implements Player {
 			searchDepth++;
 			}
 	}
+	
 	/**
 	 * minimax: this looks at all the possible future moves by looking at future moves of both
 	 * the player and the enemy through a binary search tree  
@@ -134,6 +137,7 @@ public class MinimaxPlayer implements Player {
 		
 		
 		}
+	
 	/**
 	 * This method determines how well the player is doing against the opponent 
 	 * by getting the score if you played that particular move and your enemy's score if you
@@ -218,6 +222,7 @@ public class MinimaxPlayer implements Player {
 		private ArrayList<GameTree> children; 
 		private int chosenMove;
 		private int value;
+		
 		/**
 		 * GameTree constructor. creates a game tree and puts the different nodes 
 		 * into an array called children 
@@ -231,6 +236,7 @@ public class MinimaxPlayer implements Player {
 			this.board = board;
 			children = new ArrayList<GameTree>();
 		}
+		
 		/**
 		 * this adds a new node to the gametree array 
 		 * 
@@ -240,6 +246,7 @@ public class MinimaxPlayer implements Player {
 			children.add(new GameTree(move, board));
 			
 		}
+		
 		/**
 		 * whether or not the node is a leaf if it has no children.
 		 * 
@@ -248,6 +255,7 @@ public class MinimaxPlayer implements Player {
 		public boolean isLeaf() {
 			return children.size() == 0;
 		}
+		
 		/**
 		 * whether or not the board is full 
 		 * 

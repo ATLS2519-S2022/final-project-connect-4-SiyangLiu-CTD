@@ -17,8 +17,8 @@ public class GreedyPlayer implements Player {
 	 */
 	public String name() {
 		return "Greedo";
-		
 	}
+	
     /**
      * Initialize the player. The game calls this method once,
      * before any calls to calcMove().
@@ -33,6 +33,7 @@ public class GreedyPlayer implements Player {
 		this.enemyid = 3 - id;
 		this.cols = cols;
 	}
+	
     /**
      * Called by driver program to calculate the next move.
      *  
@@ -66,6 +67,7 @@ public class GreedyPlayer implements Player {
 		arb.setMove(bestMove.colunm);
 		
 	}
+	
 	/**
 	 * This method determines how well the player is doing against the opponent 
 	 * by getting the score if you played that particular move and your enemy's score if you
@@ -83,8 +85,6 @@ public class GreedyPlayer implements Player {
 		
 		return myScore - oppScore;
 	}
-	
-	
 	
 	/**
 	 * This method figures out if you scored a point by finding how many times 
@@ -104,7 +104,6 @@ public class GreedyPlayer implements Player {
 				
 		int score = 0;
 		
-		 
 		//horizontal
 		for(int r=0; r<rows; r++) {
 			for(int c=0; c<=cols - 4; c++) {
@@ -158,6 +157,7 @@ public class GreedyPlayer implements Player {
 	private class Move implements Comparable<Move>{
 		private int colunm;
 		private int value;
+		
 		/**
 		 * Move constructor. creates a move based on the column and value of the position
 		 * 
@@ -169,6 +169,7 @@ public class GreedyPlayer implements Player {
 			this.value = value;
 			
 		}
+		
 		/**
 		 * compares two values
 		 * 
