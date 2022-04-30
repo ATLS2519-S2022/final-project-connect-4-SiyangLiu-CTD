@@ -22,9 +22,9 @@ public class AlphaBetaPlayer implements Player{
 	 * init: sets the id and enemy id and defines colums and rows.
 	 * 
 	 * @param id The id of the player
-	 * @param msecPerMove miliseconds per move
+	 * @param msecPerMove milliseconds per move
 	 * @param row number of rows in the connect 4 board
-	 * @param cols number of collumns in the connect 4 board
+	 * @param cols number of columns in the connect 4 board
 	 */
 	public void init(int id, int msecPerMove, int rows, int cols) {
 		this.id = id;
@@ -39,7 +39,7 @@ public class AlphaBetaPlayer implements Player{
 	 * and then executes the move 
 	 * 
 	 * @param board a Connect4 object the board configuration of the connect4 board
-	 * @param oppMoveCol an int the collumn of your opponents most recent move
+	 * @param oppMoveCol an int the column of your opponents most recent move
 	 * @param arb an arbitrator object
 	 */
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
@@ -178,7 +178,7 @@ public class AlphaBetaPlayer implements Player{
 	/**
 	 * calcScore: this figures out if you scored a point by finding how many times 
 	 * there are 4 player moves that are right next to each other in a line, either horizontally
-	 * virtecally or diagonally. it then adds up all the occurances and returns the total score
+	 * Vertically or diagonally. it then adds up all the occurrences and returns the total score
 	 *   
 	 * 
 	 * @param board a Connect4Board object that shows the configuration of the board

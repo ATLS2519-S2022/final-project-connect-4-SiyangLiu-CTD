@@ -137,8 +137,8 @@ public class MinimaxPlayer implements Player {
 		}
 	/**
 	 * evaluateNode method. this determines how well the player is doing against the opponent 
-	 * by getting the score if you played that particular move and your enemys score if you
-	 * played that move. it then compares the scores by subtracting your score from the enemys score
+	 * by getting the score if you played that particular move and your enemy's score if you
+	 * played that move. it then compares the scores by subtracting your score from the enemy's score
 	 * and returns the difference.
 	 *   
 	 * 
@@ -154,7 +154,7 @@ public class MinimaxPlayer implements Player {
 	/**
 	 * calcScore: this figures out if you scored a point by finding how many times 
 	 * there are 4 player moves that are right next to each other in a line, either horizontally
-	 * virtecally or diagonally. it then adds up all the occurances and returns the total score
+	 * Vertically or diagonally. it then adds up all the occurrences and returns the total score
 	 *   
 	 * 
 	 * @param board a Connect4Board object that shows the configuration of the board
