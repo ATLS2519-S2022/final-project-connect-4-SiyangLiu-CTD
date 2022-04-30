@@ -46,7 +46,7 @@ public class MinimaxPlayer implements Player {
      */
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
 		if(board.isFull())
-			throw new Error("Error: the board is full!");
+			throw new Error("Error: The board is full!");
 		
 		BST root = new BST(-1, board);
 		
