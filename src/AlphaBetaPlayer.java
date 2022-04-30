@@ -6,7 +6,7 @@
  */
 import java.util.ArrayList;
 
-public class MickieNewmanPlayer implements Player{
+public class AlphaBetaPlayer implements Player{
 	private int id;
 	private int enemyid;
 	private int cols;
@@ -16,7 +16,7 @@ public class MickieNewmanPlayer implements Player{
 	 * @return string the players name
 	 */
 	public String name() {
-		return "MickieNewmanPlayer";
+		return "AlphaBeta";
 	}
 	/**
 	 * init: sets the id and enemy id and defines colums and rows.
