@@ -44,7 +44,7 @@ public class AlphaBetaPlayer implements Player{
 	 */
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
 		if(board.isFull())
-			throw new Error("Error: the board is full!!!");
+			throw new Error("Error: the board is full!");
 		
 		GameTree root = new GameTree(-1, board);
 		

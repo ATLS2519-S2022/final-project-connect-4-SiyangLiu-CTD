@@ -17,7 +17,7 @@ public class MinimaxPlayer implements Player {
 	 * @return string the players name
 	 */
 	public String name() {
-		return "miniMax";
+		return "MiniMax";
 	}
 	/**
 	 * init: sets the id and enemy id and defines columns and rows.
@@ -45,7 +45,7 @@ public class MinimaxPlayer implements Player {
 	 */
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
 		if(board.isFull())
-			throw new Error("Error: the board is full!!!");
+			throw new Error("Error: the board is full!");
 		
 		GameTree root = new GameTree(-1, board);
 		
