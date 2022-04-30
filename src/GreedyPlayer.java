@@ -150,9 +150,6 @@ public class GreedyPlayer implements Player {
 		}
 		return score;
 	}
-
-
-
 	
 	private class Move implements Comparable<Move>{
 		private int colunm;
