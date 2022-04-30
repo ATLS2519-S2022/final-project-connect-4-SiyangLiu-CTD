@@ -19,32 +19,29 @@ public class GreedyPlayer implements Player {
 		return "Greedo";
 		
 	}
-	/**
-	 * init: sets the id and enemy id and defines columns and rows.
-	 * 
-	 * @param id The id of the player
-	 * @param msecPerMove milliseconds per move
-	 * @param row number of rows in the connect 4 board
-	 * @param cols number of columns in the connect 4 board
-	 */
+    /**
+     * Initialize the player. The game calls this method once,
+     * before any calls to calcMove().
+     * 
+     * @param id integer identifier for the player (can get opponent's id via 3-id);
+     * @param msecPerMove time allowed for each move
+     * @param rows the number of rows in the board
+     * @param cols the number of columns in the board
+     */
 	public void init(int id, int msecPerMove, int rows, int cols) {
 		this.id = id;
 		this.enemyid = 3 - id;
 		this.cols = cols;
-		
 	}
-	/**
-	 * calcMove method. it tests if it is ok to make a move by checking if the board is full 
-	 * and if a column is free to move to.
-	 * it then runs all the possible moves and unmoves them
-	 * it figures out which move to do by finding the value of the moves available to it 
-	 * and then choosing the move with the highest value
-	 * and then executes the move 
-	 * 
-	 * @param board a Connect4 object the board configuration of the connect4 board
-	 * @param oppMoveCol an int the collumn of your opponents most recent move
-	 * @param arb an arbitrator object
-	 */
+    /**
+     * Called by driver program to calculate the next move.
+     *  
+     * @param board current connect 4 board
+     * @param oppMoveCol column of opponent's most recent move; -1 if this is the first move 
+     * 		  of the game; note that the board may not be empty on the first move of the game!
+     * @param arb handles communication between game and player
+     * @throws TimeUpException If the game determines the player has run out of time
+     */
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
 		if(board.isFull()) 
 			throw new Error("error: The board is full!");
@@ -70,9 +67,9 @@ public class GreedyPlayer implements Player {
 		
 	}
 	/**
-	 * evaluateBoard: this determines how well the player is doing against the opponent 
-	 * by getting the score if you played that particular move and your enemys score if you
-	 * played that move. it then compares the scores by subtracting your score from the enemys score
+	 * This method determines how well the player is doing against the opponent 
+	 * by getting the score if you played that particular move and your enemy's score if you
+	 * played that move. it then compares the scores by subtracting your score from the enemy's score
 	 * and returns the difference.
 	 * 
 	 * @param board a Connect4 object the board configuration of the connect4 board
@@ -90,9 +87,9 @@ public class GreedyPlayer implements Player {
 	
 	
 	/**
-	 * calcScore : this figures out if you scored a point by finding how many times 
+	 * This method figures out if you scored a point by finding how many times 
 	 * there are 4 player moves that are right next to each other in a line, either horizontally
-	 * virtecally or diagonally. it then adds up all the occurances and returns the total score
+	 * Vertically or diagonally. it then adds up all the occurrences and returns the total score
 	 *   
 	 * 
 	 * @param board a Connect4Board object that shows the configuration of the board
