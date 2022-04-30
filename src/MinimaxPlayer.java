@@ -23,13 +23,13 @@ public class MinimaxPlayer implements Player {
 	 * init: sets the id and enemy id and defines columns and rows.
 	 * 
 	 * @param id The id of the player
-	 * @param msecPerMove miliseconds per move
+	 * @param msecPerMove milliseconds per move
 	 * @param row number of rows in the connect 4 board
-	 * @param cols number of collumns in the connect 4 board
+	 * @param cols number of columns in the connect 4 board
 	 */
 	public void init(int id, int msecPerMove, int rows, int cols) {
 		this.id = id;
-		this.enemyid = 3 - id; //1 or 2 -> if my id is 1 -> opp id 2 vice versa
+		this.enemyid = 3 - id; 
 		this.cols = cols;
 	}
 	/**
@@ -40,7 +40,7 @@ public class MinimaxPlayer implements Player {
 	 * and then executes the move 
 	 * 
 	 * @param board a Connect4 object the board configuration of the connect4 board
-	 * @param oppMoveCol an int the collumn of your opponents most recent move
+	 * @param oppMoveCol an int the column of your opponents most recent move
 	 * @param arb an arbitrator object
 	 */
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
@@ -50,23 +50,18 @@ public class MinimaxPlayer implements Player {
 		GameTree root = new GameTree(-1, board);
 		
 		for(int i = 0; i < cols; i++) {
-			if(!board.isColumnFull(i)) {//if collumn is not full consider that move
+			if(!board.isColumnFull(i)) {
 				board.move(i, id);
 				root.addChild(i, new Connect4Board(board));
 				board.unmove(i, id);
 			}
 		}
 		
-		//initialize a maximum search depth to be 1
 		int searchDepth = 1;
-		// while there is time remaining to calculate your move(you can check this with  the arb.isTimeUp() method) and your current search depth is <= the number of moves remaining (you can check this with board.numEmptyCells() method): 
 		while(!arb.isTimeUp() && searchDepth <= board.numEmptyCells()) {
 			
-		// do a minimax search to the depth of your maximum search variable 
-			minimax(root, searchDepth, true, arb);// investigate if the boolean is supposed to alwayse be true
-		// set your move as the best move found so far
+			minimax(root, searchDepth, true, arb);
 			arb.setMove(root.chosenMove);
-		// increment your maximum search depth
 			searchDepth++;
 			}
 	}
@@ -90,16 +85,8 @@ public class MinimaxPlayer implements Player {
 		}
 		
 		if(node.isLeaf()){
+			int moveId = maxminimizingPlayer ? id : enemyid;
 			
-			//int moveId;
-			//if(maxminimizingPlayer)
-				//moveId= id;
-			//else
-				//moveId = enemyid;
-			
-			int moveId = maxminimizingPlayer ? id : enemyid;// will change if minimaximizing player is true or false depending on the player id and sets that to move id
-			
-			//checks to see if any column is full if not it considers the move
 			for(int i = 0; i < cols; i++){
 				if(!node.board.isColumnFull(i)){
 					node.board.move(i , moveId);
@@ -108,12 +95,11 @@ public class MinimaxPlayer implements Player {
 					}
 				}
 			}
-		//if its the player's turn
 		if(maxminimizingPlayer) {
 			int value = Integer.MIN_VALUE;
 			for(GameTree child: node.children) {
-				int newVal = minimax(child, depth - 1, false, arb);//finds value of child
-				if(newVal > value) {// compares the values of all the children
+				int newVal = minimax(child, depth - 1, false, arb);
+				if(newVal > value) {
 					value = newVal;
 					node.value = value;
 					node.chosenMove = child.move;
@@ -128,12 +114,11 @@ public class MinimaxPlayer implements Player {
 			}
 			return value;
 		}
-		//if its the opponents's turn
 		else {
 			int value = Integer.MAX_VALUE;
 			for(GameTree child: node.children) {
-				int newVal = minimax(child, depth - 1, true, arb);//finds value of child
-				if(newVal < value) {// compares the values of all the children 
+				int newVal = minimax(child, depth - 1, true, arb);
+				if(newVal < value) {
 					value = newVal;
 					node.value = value;
 					node.chosenMove = child.move;
@@ -227,7 +212,7 @@ public class MinimaxPlayer implements Player {
 		}
 		return score;
 	}
-// creates an object called GameTree it is a binary search tree of possible moves
+
 	private class GameTree{
 		private Connect4Board board;
 		private int move;

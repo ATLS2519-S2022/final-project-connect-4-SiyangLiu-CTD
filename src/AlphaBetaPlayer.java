@@ -28,7 +28,7 @@ public class AlphaBetaPlayer implements Player{
 	 */
 	public void init(int id, int msecPerMove, int rows, int cols) {
 		this.id = id;
-		this.enemyid = 3 - id; //1 or 2 -> if my id is 1 -> opp id 2 vice versa
+		this.enemyid = 3 - id; 
 		this.cols = cols;
 	}
 	/**
@@ -49,28 +49,21 @@ public class AlphaBetaPlayer implements Player{
 		GameTree root = new GameTree(-1, board);
 		
 		for(int i = 0; i < cols; i++) {
-			if(!board.isColumnFull(i)) {//if collumn is not full consider that move
+			if(!board.isColumnFull(i)) {
 				board.move(i, id);
 				root.addChild(i, new Connect4Board(board));
 				board.unmove(i, id);
 			}
 		}
 		
-		//initialize a maximum search depth to be 1
-		
 		int searchDepth = 1;
-		// initalize alpha and beta to be negative infinity and positive infinity
 		double Alpha = Double.NEGATIVE_INFINITY;
 		double Beta = Double.POSITIVE_INFINITY;
-		// while there is time remaining to calculate your move(you can check this with  the arb.isTimeUp() method) and your current search depth is <= the number of moves remaining (you can check this with board.numEmptyCells() method): 
 		while(!arb.isTimeUp() && searchDepth <= board.numEmptyCells()) {
 			
-		// do a AlphaBeta search to the depth of your maximum search variable 
 			
-			alphabeta(root, searchDepth, Alpha, Beta, true, arb);// investigate if the boolean is supposed to alwayse be true
-		// set your move as the best move found so far
+			alphabeta(root, searchDepth, Alpha, Beta, true, arb);
 			arb.setMove(root.chosenMove);
-		// increment your maximum search depth
 			searchDepth++;
 			}
 	}
@@ -99,9 +92,9 @@ public class AlphaBetaPlayer implements Player{
 		
 		if(node.isLeaf()){
 			
-			int moveId = maxminimizingPlayer ? id : enemyid;// will change if minimaximizing player is true or false depending on the player id and sets that to move id
+			int moveId = maxminimizingPlayer ? id : enemyid;
 			
-			//checks to see if any column is full if not it considers the move
+
 			for(int i = 0; i < cols; i++){
 				if(!node.board.isColumnFull(i)){
 					node.board.move(i , moveId);
@@ -110,17 +103,17 @@ public class AlphaBetaPlayer implements Player{
 					}
 				}
 			}
-		// if its the players turn 
+
 		if(maxminimizingPlayer) {
 			int value = Integer.MIN_VALUE;
-			//runs through all nodes in children
+
 			for(GameTree child: node.children) {
 				int newVal = alphabeta(child, depth - 1, alpha, beta, false, arb);//finds value of child
-				if(newVal > value) {// compares the values of all the children 
+				if(newVal > value) {
 					value = newVal;
 					node.value = value;
 					node.chosenMove = child.move;
-					if(value > alpha) { //sets alpha to greatest value 
+					if(value > alpha) {
 						alpha = value;
 					}
 				}
@@ -131,23 +124,23 @@ public class AlphaBetaPlayer implements Player{
 						node.chosenMove = child.move;
 						
 				}
-				if(alpha >= beta) {// if alpha is greater than beta then it cuts off this node
+				if(alpha >= beta) {
 					break;
 				}
 			}
 			return value;
 		}
-		//if its the opponents's turn
+
 		else {
 
 			int value = Integer.MAX_VALUE;
 			for(GameTree child: node.children) {
-				int newVal = alphabeta(child, depth - 1, alpha, beta, true, arb);// finds values of all the children
-				if(newVal < value) {// compares the values of all the children 
+				int newVal = alphabeta(child, depth - 1, alpha, beta, true, arb);
+				if(newVal < value) {
 					value = newVal;
 					node.value = value;
 					node.chosenMove = child.move;
-					if(value < beta) {// sets beta to lowest value
+					if(value < beta) {
 						beta = value;
 					}
 				}
@@ -157,7 +150,7 @@ public class AlphaBetaPlayer implements Player{
 					if(newMoveDistFromCenter < currMoveDistFromCenter) 
 						node.chosenMove = child.move;
 				}
-				if(alpha >= beta) {// if alpha is greater than beta then it cuts off this node
+				if(alpha >= beta) {
 					break;
 				}
 			}
@@ -245,15 +238,12 @@ public class AlphaBetaPlayer implements Player{
 		return score;
 	}
 	
-	// creates an object called GameTree it is a binary search tree of possible moves
 	private class GameTree{
 		private Connect4Board board;
 		private int move;
 		private ArrayList<GameTree> children; 
 		private int chosenMove;
 		private int value;
-		//private double Alpha;
-		//private double Beta;
 		
 		/**
 	 * GameTree constructor. creates a game tree and puts the different nodes 

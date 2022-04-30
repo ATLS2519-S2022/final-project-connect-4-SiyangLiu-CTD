@@ -9,7 +9,7 @@ public class GreedyPlayer implements Player {
 	private int enemyid;
 	private int cols;
 	
-	private Move[] possibleMoves;// array of possible moves
+	private Move[] possibleMoves;
 	/**
 	 * sets name of the player
 	 * 
@@ -23,9 +23,9 @@ public class GreedyPlayer implements Player {
 	 * init: sets the id and enemy id and defines columns and rows.
 	 * 
 	 * @param id The id of the player
-	 * @param msecPerMove miliseconds per move
+	 * @param msecPerMove milliseconds per move
 	 * @param row number of rows in the connect 4 board
-	 * @param cols number of collumns in the connect 4 board
+	 * @param cols number of columns in the connect 4 board
 	 */
 	public void init(int id, int msecPerMove, int rows, int cols) {
 		this.id = id;
@@ -48,22 +48,16 @@ public class GreedyPlayer implements Player {
 	public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) throws TimeUpException{
 		if(board.isFull()) 
 			throw new Error("error: The board is full!");
-		//consider all possible moves the Ai could make	
 		possibleMoves = new Move[cols];
-		//for each move:
 		for(int c = 0; c < cols; c++) {
-			if(board.isValidMove(c)) {//if collumn is not full consider that move
-			//temporarily make the move using board.move()
+			if(board.isValidMove(c)) {
 				board.move(c, id);
-			//calculates a score based on how the board is for you now that youve made the move
 				int moveValue = evaluateBoard(board, id, enemyid);
 				possibleMoves[c]= new Move(c, moveValue);
-			//undoes the move using board.unmove
 				board.unmove(c, id);
 				}
 		}
 		Move bestMove = null;
-		//return the move that had the highest calculated score
 		for(int i = 0; i < possibleMoves.length; i++) {
 			if(bestMove == null) {
 				bestMove = possibleMoves[i];
